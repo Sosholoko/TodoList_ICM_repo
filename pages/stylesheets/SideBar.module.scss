@@ -1,0 +1,35 @@
+.mainContainer {
+  box-shadow: 0 0 10px 5px rgba(100, 100, 100, 0.2);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  width: 15%;
+  padding: 20px;
+  font-family: "Montserrat";
+}
+
+.sideTab {
+  border: 1px solid rgb(64, 109, 204);
+  box-shadow: 0 0 10px 5px rgba(100, 100, 100, 0.2);
+  background: rgb(64, 109, 204);
+  border-radius: 10px;
+  height: 50px;
+  margin-top: 60px;
+}
+
+.sideTabInactive {
+  border: 1px solid rgb(255, 255, 255);
+  box-shadow: 0 0 10px 5px rgba(191, 191, 191, 0.2);
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  height: 50px;
+  margin-top: 20px;
+}
+
+.signOutBtn {
+  position: fixed;
+  bottom: 0;
+  left: 4%;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+}

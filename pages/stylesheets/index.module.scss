@@ -1,0 +1,11 @@
+.mainDiv {
+  min-height: 100vh; /* Set the minimum height to cover the full viewport */
+  margin: 0;
+  background: white;
+  backdrop-filter: blur(30px);
+  font-family: "Montserrat";
+}
+
+.todoContainer {
+  padding-top: 30px;
+}
