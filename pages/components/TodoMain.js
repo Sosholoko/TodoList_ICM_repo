@@ -240,7 +240,7 @@ const TodoList = () => {
                                     >
                                       <Button
                                         className={styles.statusButton}
-                                        color="info"
+                                        color="inherit"
                                         onClick={(event) => handleStatusMenuOpen(event, index)}
                                         size="small"
                                       >
@@ -261,7 +261,7 @@ const TodoList = () => {
                                         onClick={() => handleStatusMenuItemClick("Later", index)}
                                         selected={selectedStatus === "Later"}
                                       >
-                                        Later
+                                        For Later
                                       </MenuItem>
                                     </Menu>
                                   </div>
