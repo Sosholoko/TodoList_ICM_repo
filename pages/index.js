@@ -1,14 +1,17 @@
+import React from "react";
+import { Auth0ProviderWithHistory } from "../auth0";
 import TodoList from "./components/TodoMain";
 import styles from "./stylesheets/index.module.scss";
-import { Html, Head, Main, NextScript } from "next/document";
 
 const Home = () => {
   return (
-    <div className={styles.mainDiv}>
-      <div className={styles.todoContainer}>
-        <TodoList />
+    <Auth0ProviderWithHistory>
+      <div className={styles.mainDiv}>
+        <div className={styles.todoContainer}>
+          <TodoList />
+        </div>
       </div>
-    </div>
+    </Auth0ProviderWithHistory>
   );
 };
 

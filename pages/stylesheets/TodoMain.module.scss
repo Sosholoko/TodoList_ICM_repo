@@ -4,52 +4,57 @@
 }
 
 .todoContainer {
-  padding: 35px;
+  padding: 2rem;
   width: 90%;
-  min-height: 85vh;
-  margin-left: auto;
-  margin-right: auto;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+  min-height: 90vh;
+  margin: 0 auto;
+  border-top-right-radius: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
   background: rgb(234, 234, 234);
   text-align: center;
 }
+
 .topBar {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  height: 50px;
+  height: 3rem;
 }
+
 .profileInfo {
   display: flex;
   flex-direction: row;
 }
+
 .profilePic {
-  height: 45px;
-  width: 45px;
+  height: 3rem;
+  width: 3rem;
   border-radius: 50%;
   border: 1px solid black;
 }
+
 .emptySpace {
   width: 6%;
 }
+
 .searchBarContainer {
   display: flex;
   justify-content: space-between;
   background-color: white;
-  border-radius: 10px;
-  width: 450px;
-  margin-left: auto;
-  margin-right: auto;
+  border-radius: 1rem;
+  width: 28rem;
+  margin: 0 auto;
 }
+
 .searchBar {
-  padding: 20px;
-  border-radius: 10px;
-  width: 380px;
+  padding: 1.25rem;
+  border-radius: 1.5rem;
+  width: 24rem;
   border: none;
-  font-size: 15px;
+  font-size: 1rem;
   font-family: "Montserrat";
 }
+
 .ul {
   list-style-type: none;
   padding: 20px;
@@ -58,60 +63,70 @@
   margin-top: 35px;
   margin-left: auto;
   margin-right: auto;
-  width: 60%;
+  max-width: 60%;
   height: 70%;
   background: rgb(219, 219, 219);
+  overflow-y: scroll;
 }
+
 .todoItem {
-  box-shadow: 0 0 10px 5px rgba(100, 100, 100, 0.2);
+  box-shadow: 0 0 0.625rem 0.3125rem rgba(100, 100, 100, 0.2);
   background: white;
-  padding: 15px;
-  border-radius: 10px;
+  padding: 1rem;
+  border-radius: 1rem;
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin: 0 auto;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
+
 .todoContent {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
+
 .checkBox {
-  margin-right: 10px;
+  margin-right: 0.625rem;
 }
+
 .editField {
-  font-size: 20px;
-  box-shadow: 0 0 10px 5px rgba(100, 100, 100, 0.2);
+  font-size: 1.25rem;
+  box-shadow: 0 0 0.625rem 0.3125rem rgba(100, 100, 100, 0.2);
   border: none;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 0.3125rem;
+  padding: 0.625rem;
+}
+
+.editButtons {
+  margin-top: 0.5rem;
 }
 
 .searchBar:focus {
   outline: none;
 }
+
 .iconEdit {
-  margin-right: 15px;
-  margin-top: 10px;
-  font-size: 20px;
+  margin-right: 0.9375rem;
+  margin-top: 0.625rem;
+  font-size: 1.25rem;
   :hover {
-    color: purple;
+    color: rgb(65, 108, 196);
   }
 }
+
 .iconDelete {
-  margin-top: 10px;
-  font-size: 20px;
+  margin-top: 0.625rem;
+  font-size: 1.25rem;
   :hover {
-    color: red;
+    color: rgb(213, 93, 93);
   }
 }
 
 .iconPlus {
-  margin-right: 15px;
-  margin-top: 16px;
-  font-size: 20px;
+  margin-right: 1rem;
+  margin-top: 0.9rem;
+  font-size: 1.25rem;
   :hover {
     color: blue;
   }
@@ -129,8 +144,8 @@
   margin-left: auto;
   margin-right: auto;
   bottom: 0;
-  right: 25%;
-  width: 30%;
+  right: 23%;
+  width: 35%;
   padding: 16px;
   display: flex;
   justify-content: space-around;
