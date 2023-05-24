@@ -36,10 +36,6 @@ const TodoList = () => {
   });
 
   useEffect(() => {
-    console.log(user);
-  }, [user]);
-
-  useEffect(() => {
     setTempTodos([...todos]);
   }, [todos]);
 
@@ -68,11 +64,10 @@ const TodoList = () => {
   };
 
   const handleDragEnd = (result) => {
-    if (!result.destination) return; // If dropped outside a droppable area, do nothing
-
+    if (!result.destination) return;
     const updatedTempTodos = Array.from(tempTodos);
-    const [reorderedItem] = updatedTempTodos.splice(result.source.index, 1); // Remove the item from the source position
-    updatedTempTodos.splice(result.destination.index, 0, reorderedItem); // Insert the item at the destination position
+    const [reorderedItem] = updatedTempTodos.splice(result.source.index, 1);
+    updatedTempTodos.splice(result.destination.index, 0, reorderedItem);
 
     setTempTodos(updatedTempTodos);
   };
