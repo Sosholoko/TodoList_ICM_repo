@@ -6,11 +6,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
-
+import GeneralDialog from "../components/modal/GeneralDialog";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import Badge from "@mui/material/Badge";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import styles from "../stylesheets/TodoMain.module.scss";
 
 const TodoList = () => {
@@ -22,6 +26,14 @@ const TodoList = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editValue, setEditValue] = useState("");
   const [completedCount, setCompletedCount] = useState(0);
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(Array(todos.length).fill(null));
+  const [selectedStatus, setSelectedStatus] = useState(Array(todos.length).fill(""));
+  const [todoIndex, setTodoIndex] = useState();
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
   useEffect(() => {
     console.log(user);
@@ -68,6 +80,7 @@ const TodoList = () => {
   const handleSaveChanges = () => {
     setTodos(tempTodos);
     setTempTodos([]);
+    setIsSnackbarOpen(true);
   };
 
   const handleDiscardChanges = () => {
@@ -96,10 +109,42 @@ const TodoList = () => {
     setEditValue("");
   };
 
+  const handleCloseSnackbar = () => {
+    setIsSnackbarOpen(false);
+  };
+
+  const handleStatusMenuOpen = (event, index) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedStatus(tempTodos[index].status);
+    setTodoIndex(index);
+  };
+
+  const handleStatusMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleStatusMenuItemClick = (status) => {
+    const updatedTempTodos = [...tempTodos];
+    updatedTempTodos[todoIndex].status = status;
+    setTempTodos(updatedTempTodos);
+    setSelectedStatus(status);
+    handleStatusMenuClose();
+  };
+
   return (
     <>
       {isAuthenticated ? (
         <div className={styles.mainContainer}>
+          <Snackbar
+            open={isSnackbarOpen}
+            onClose={handleCloseSnackbar}
+            autoHideDuration={3000}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right", offsetY: "-20px" }}
+          >
+            <Alert severity="success" sx={{ width: "100%" }}>
+              Your changes were saved successfully !
+            </Alert>
+          </Snackbar>
           <SideBar tasksLength={tempTodos.length} completedTasks={completedCount} />
           <div className={styles.todoContainer}>
             <div className={styles.topBar}>
@@ -130,8 +175,8 @@ const TodoList = () => {
                   <ul className={styles.ul} {...provided.droppableProps} ref={provided.innerRef}>
                     {tempTodos.length == 0 && (
                       <>
-                        <p style={{ fontStyle: "italic" }}>You currently haven't any tasks.</p>
-                        <p style={{ fontStyle: "italic" }}>You can add new tasks by typing in the text field</p>
+                        <p style={{ fontStyle: "italic", color: "gray" }}>You currently haven't any tasks.</p>
+                        <p style={{ fontStyle: "italic", color: "gray" }}>You can add new tasks by typing in the text field</p>
                       </>
                     )}
                     {tempTodos.map((todo, index) => (
@@ -174,7 +219,52 @@ const TodoList = () => {
 
                                   {todo.text}
                                 </span>
-                                <div>
+
+                                <div className={styles.sideButtons}>
+                                  <div>
+                                    <Badge
+                                      badgeContent={todo.status ? todo.status : "New"}
+                                      color={
+                                        todo.status == "New"
+                                          ? "success"
+                                          : todo.status == "In Progress"
+                                          ? "primary"
+                                          : todo.status == "Later"
+                                          ? "secondary"
+                                          : "success"
+                                      }
+                                      anchorOrigin={{
+                                        vertical: "top",
+                                        horizontal: "left"
+                                      }}
+                                    >
+                                      <Button
+                                        className={styles.statusButton}
+                                        color="info"
+                                        onClick={(event) => handleStatusMenuOpen(event, index)}
+                                        size="small"
+                                      >
+                                        Status
+                                      </Button>
+                                    </Badge>
+                                    <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleStatusMenuClose}>
+                                      <MenuItem onClick={() => handleStatusMenuItemClick("New", index)} selected={selectedStatus === "New"}>
+                                        New
+                                      </MenuItem>
+                                      <MenuItem
+                                        onClick={() => handleStatusMenuItemClick("In Progress", index)}
+                                        selected={selectedStatus === "In Progress"}
+                                      >
+                                        In Progress
+                                      </MenuItem>
+                                      <MenuItem
+                                        onClick={() => handleStatusMenuItemClick("Later", index)}
+                                        selected={selectedStatus === "Later"}
+                                      >
+                                        Later
+                                      </MenuItem>
+                                    </Menu>
+                                  </div>
                                   <FontAwesomeIcon icon={faEdit} className={styles.iconEdit} onClick={() => handleEditTodo(index)} />
                                   <FontAwesomeIcon icon={faTrash} className={styles.iconDelete} onClick={() => handleDeleteTodo(index)} />
                                 </div>
@@ -193,15 +283,18 @@ const TodoList = () => {
               <Button variant="contained" startIcon={<CheckIcon />} onClick={handleSaveChanges} disabled={tempTodos.length === 0}>
                 Save Changes
               </Button>
-              <Button
-                variant="outlined"
+
+              <GeneralDialog
+                title={"Discard Changes"}
+                message={"Are you sure you want to discard last changes ? It will restore last saved version."}
+                cancel={"Cancel"}
+                confirm={"Yes"}
+                button={"Discard changes"}
+                confirmAction={() => handleDiscardChanges()}
                 startIcon={<DeleteIcon />}
-                color="error"
-                onClick={handleDiscardChanges}
+                color={"error"}
                 disabled={tempTodos.length === 0}
-              >
-                Discard changes
-              </Button>
+              />
             </div>
           </div>
         </div>

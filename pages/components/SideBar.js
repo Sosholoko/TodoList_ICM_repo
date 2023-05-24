@@ -3,6 +3,7 @@ import styles from "../stylesheets/SideBar.module.scss";
 import Button from "@mui/material/Button";
 import { useAuth0 } from "@auth0/auth0-react";
 import SignoutIcon from "@mui/icons-material/ExitToApp";
+import GeneralDialog from "../components/modal/GeneralDialog";
 
 export default function SideBar({ tasksLength, completedTasks }) {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
@@ -10,9 +11,10 @@ export default function SideBar({ tasksLength, completedTasks }) {
   return (
     <div className={styles.mainContainer}>
       <div>
-        <h2>
-          <span style={{ color: "rgb(64, 109, 204)" }}>Todo List</span> <span style={{ fontStyle: "italic", fontWeight: "700" }}>ICM</span>
-        </h2>
+        <h3>
+          <span style={{ color: "rgb(64, 109, 204)", fontSize: "27px" }}>Todo</span>
+          <span style={{ textDecoration: "line-through", fontSize: "27px" }}>List</span> ICM
+        </h3>
         <h4>
           Welcome back <span style={{ fontStyle: "italic", color: "rgb(64, 109, 204)" }}>{user.name}</span>
         </h4>
@@ -38,16 +40,18 @@ export default function SideBar({ tasksLength, completedTasks }) {
       </div>
       <div className={styles.signOutBtn}>
         {isAuthenticated ? (
-          <Button
-            variant="outlined"
-            startIcon={<SignoutIcon />}
-            color="error"
-            onClick={() => {
-              logout();
-            }}
-          >
-            Sign Out
-          </Button>
+          <>
+            <GeneralDialog
+              title={"Log Out"}
+              message={"Are you sure you want to be logged out ? Your session will be lost."}
+              cancel={"Cancel"}
+              confirm={"Yes"}
+              button={"Sign Out"}
+              confirmAction={() => logout()}
+              startIcon={<SignoutIcon />}
+              color={"error"}
+            />
+          </>
         ) : (
           <Button
             variant="outlined"

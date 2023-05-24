@@ -1,6 +1,24 @@
 .mainContainer {
   min-height: 100vh; /* Set the minimum height to cover the full viewport */
+  box-shadow: 0 0 10px 5px rgba(100, 100, 100, 0.607);
   margin: 0;
-  background: rgb(64, 109, 204);
+  padding: 20px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 10px;
+  background: rgb(235, 235, 235);
   backdrop-filter: blur(30px);
+  text-align: center;
+}
+
+.mainBlock {
+  float: left;
+  margin-left: 15%;
+  margin-top: 16%;
+}
+.buttonContainer {
+  margin-left: 15%;
+  margin-top: 25%;
 }
